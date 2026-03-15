@@ -27,28 +27,58 @@ export function WeatherLoadingState() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="w-full flex flex-col items-center gap-10"
+      className="w-full flex-1 min-h-0"
     >
-      {/* hero */}
-      <div className="w-full max-w-3xl rounded-3xl border border-white/15 bg-white/8 backdrop-blur-xl px-6 py-10 flex flex-col items-center gap-5">
-        <SkeletonBlock className="w-36 h-5 rounded-full" />
-        <SkeletonBlock className="w-28 h-28 rounded-full" />
-        <SkeletonBlock className="w-40 h-16 rounded-xl" />
-        <SkeletonBlock className="w-48 h-5 rounded-full" />
-        <SkeletonBlock className="w-52 h-4 rounded-full opacity-60" />
-      </div>
+      <div className="w-full h-full flex flex-col xl:flex-row gap-3 items-start">
+        {/* Left column skeleton */}
+        <div className="w-full xl:w-[320px] 2xl:w-[350px] shrink-0 flex flex-col gap-3">
+          <div className="rounded-3xl border border-white/15 bg-white/8 backdrop-blur-xl p-3.5 flex flex-col gap-2.5">
+            <SkeletonBlock className="h-10 rounded-xl" />
+            <div className="flex items-center justify-between">
+              <SkeletonBlock className="h-4 w-32 rounded-full" />
+              <SkeletonBlock className="h-3 w-8 rounded-full" />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-2">
+                <SkeletonBlock className="h-14 w-28 rounded-xl" />
+                <SkeletonBlock className="h-3 w-24 rounded-full" />
+              </div>
+              <SkeletonBlock className="h-16 w-16 rounded-full" />
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <SkeletonBlock key={`city-${i}`} className="h-8 w-20 rounded-lg" />
+              ))}
+            </div>
+          </div>
 
-      {/* detail cards */}
-      <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-4">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <SkeletonBlock key={i} className="h-28 rounded-2xl" />
-        ))}
-      </div>
+          <div className="grid grid-cols-2 gap-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <SkeletonBlock key={`detail-${i}`} className="h-20 rounded-2xl" />
+            ))}
+          </div>
+        </div>
 
-      {/* hourly + weekly */}
-      <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <SkeletonBlock className="h-44 rounded-2xl" />
-        <SkeletonBlock className="h-44 rounded-2xl" />
+        {/* Right column skeleton */}
+        <div className="flex-1 min-w-0 flex flex-col gap-3 h-full">
+          <div className="rounded-2xl border border-white/15 bg-white/8 backdrop-blur-xl p-2.5">
+            <div className="grid grid-cols-7 gap-1.5">
+              {Array.from({ length: 7 }).map((_, i) => (
+                <SkeletonBlock key={`week-${i}`} className="h-24 rounded-lg" />
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-3">
+            <SkeletonBlock className="h-40 flex-1 rounded-2xl" />
+            <SkeletonBlock className="h-40 md:w-[200px] rounded-2xl" />
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-3">
+            <SkeletonBlock className="h-44 flex-1 rounded-2xl" />
+            <SkeletonBlock className="h-44 flex-1 rounded-2xl" />
+          </div>
+        </div>
       </div>
     </motion.div>
   );
